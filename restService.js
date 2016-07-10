@@ -192,7 +192,24 @@ app.get('/api/attendees', function(req, res){
       });
 });
 
-//put call for 
+//put call for attendance_roster
+
+app.put('/api/attendees/:cust_id', function (req, res){
+    var cust_id = req.body.cust_id;
+    var queryStr = "UPDATE SET attended SET ? WHERE cust_id ='+cust_id;
+    var body = req.body;
+    var attended = 
+    {
+        customer_id:body.cust_id,
+        var event_id = body.event_id,
+        var attended = body.attended   
+    }
+    connection.query(queryStr,attended,function(err,res){
+        if(err) throw err;
+        console.log('Last update ID:',body.cust_id);
+    });
+});
+
 
 //HTTP to create events
 app.post('/api/event, function (req, res) {

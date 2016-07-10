@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -90,9 +90,10 @@
         </div>
         <div class="modal-body">
           <div class="wrapper">
-    <form class="form-signin">       
+    <form class="form-signin" name="signinform" id="signinform">       
       <h2 class="form-signin-heading">Please login</h2>
-      <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
+      <span id="loginerror" name="loginerror" style="color: red; display: hidden" >Wrong username or password!</span>
+      <input type="text" class="form-control" name="cust_id" placeholder="Email Address" required="" autofocus="" />
       <input type="password" class="form-control" name="password" placeholder="Password" required=""/>      
       <label class="checkbox">
         <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
@@ -152,5 +153,36 @@
     <script src="js/bootstrap.min.js"></script>
 
 </body>
+
+<script type="text/javascript">
+
+var $inputs = $('#signinform :input');
+var values = {};
+    $inputs.each(function() {
+        values[this.name] = $(this).val();
+    });
+    
+    $.ajax({
+            type: "POST",
+            url: "http://104.197.246.249/api/customer/login",
+            data:JSON.stringify(values),
+            contentType: 'application/json',
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+
+                //alert(data);
+                window.location.href = 'clientpage.html';
+            },
+
+            error: function (jqXHR, status) {
+                // error handler
+                console.log( jqXHR);
+                //alert('fail' + status.code);
+                //window.location.href = 'index.html';
+                $('#loginerror').css('display', 'inline-block');
+            }
+         });
+</script>
 
 </html>

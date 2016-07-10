@@ -160,19 +160,19 @@ app.get('/api/attendees', function(req, res){
   var result =[];
   //var eventId = Number(req.query.eventId);
     //outer join query
-  var queryStr = "SELECT c.customer_id, 
-  c.firstname, 
-  c.lastname, 
-  c.adult,
-  c.children,
-  a.attended,
-  e.event_id,
-  e.month
-  from attended a 
-  left outer join customer c 
-	on c.customer_id=a.customer_id 
-  left outer join events e 
-	on a.event_id = e.event_id
+  var queryStr = "SELECT c.customer_id, \
+  c.firstname, \
+  c.lastname, \
+  c.adult, \
+  c.children, \
+  a.attended, \
+  e.event_id, \
+  e.month \
+  from attended a \
+  left outer join customer c \
+	on c.customer_id=a.customer_id \
+  left outer join events e \
+	on a.event_id = e.event_id \
   where e.event_id=a.event_id";
   
   console.log("Query is "+queryStr);
@@ -196,7 +196,7 @@ app.get('/api/attendees', function(req, res){
 
 app.put('/api/attendees/:cust_id', function (req, res){
     var cust_id = req.body.cust_id;
-    var queryStr = "UPDATE SET attended SET ? WHERE cust_id ='+cust_id;
+    var queryStr = "UPDATE SET attended SET ? WHERE cust_id ="+cust_id;
     var body = req.body;
     var attended = 
     {
@@ -212,7 +212,7 @@ app.put('/api/attendees/:cust_id', function (req, res){
 
 
 //HTTP to create events
-app.post('/api/event, function (req, res) {
+app.post('/api/event', function (req, res) {
 
     console.log(req.body.name);
     var body = req.body;
@@ -300,8 +300,7 @@ app.put('/api/customer/register/:cust_id', function (req, res){
 
     var cust_id = req.body.cust_id;
 
-    var queryStr = "UPDATE SET ContactName = 'Alfred Schmidt', City='Hamburg'
-    WHERE CustomerName='Alfreds Futterkiste';
+    var queryStr = "UPDATE SET ContactName = 'Alfred Schmidt', City='Hamburg' WHERE CustomerName='Alfreds Futterkiste'";
     var body = req.body;
     var hash = crypto.createHash('sha256').update(body.password).digest('base64');
     var customer = {customer_id: body.customer_id,

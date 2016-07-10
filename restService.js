@@ -219,9 +219,9 @@ app.put('/api/attendees/:cust_id', function (req, res){
     var attended = 
     {
         customer_id:body.cust_id,
-        var attended = body.attended,
-        var event_id = body.event_id,
-        var time = body.time  
+        attended:body.attended,
+        event_id:body.event_id,
+        time:body.time  
     }
     connection.query(queryStr,attended,function(err,res){
         if(err) throw err;

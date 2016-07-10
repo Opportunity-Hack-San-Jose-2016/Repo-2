@@ -107,6 +107,117 @@ app.post('/api/customer/register', function (req, res) {
   
 })
 
+//get all events
+app.get('/api/event', function(req, res){
+
+  var result =[];
+  var queryStr = "select * from events";
+  console.log("Query is "+queryStr);
+  connection.query(queryStr, function(err, rows, fields) {
+      if (!err && rows.length!=0){
+        console.log('The solution is: ', rows);
+		for(var i = 0; i<rows.length; i++)
+        {
+			result.push(rows[i]);
+		}
+		  	res.send(result);
+	}
+
+      else{
+        console.log('Error while performing Query.'+err);
+      }
+      });
+});
+
+//get by eventid
+app.get('/api/event/:eventId', function(req, res){
+
+  var result =[];
+  var eventId = Number(req.query.eventId);
+
+  var queryStr = "select * from events where event_id ="+eventId;
+  console.log("Query is "+queryStr);
+  connection.query(queryStr, function(err, rows, fields) {
+      if (!err && rows.length!=0){
+        console.log('The solution is: ', rows);
+		for(var i = 0; i<rows.length; i++){
+
+			result.push(rows[i]);
+		}
+		  	res.send(result);
+	}
+
+      else{
+        console.log('Error while performing Query.'+err);
+      }
+      });
+});
+
+
+//get all attendance_roster
+app.get('/api/attendees', function(req, res){
+
+  var result =[];
+  //var eventId = Number(req.query.eventId);
+    //outer join query
+  var queryStr = "SELECT c.customer_id, 
+  c.firstname, 
+  c.lastname, 
+  c.adult,
+  c.children,
+  a.attended,
+  e.event_id,
+  e.month
+  from attended a 
+  left outer join customer c 
+	on c.customer_id=a.customer_id 
+  left outer join events e 
+	on a.event_id = e.event_id
+  where e.event_id=a.event_id";
+  
+  console.log("Query is "+queryStr);
+  connection.query(queryStr, function(err, rows, fields) {
+      if (!err && rows.length!=0){
+        console.log('The solution is: ', rows);
+		for(var i = 0; i<rows.length; i++)
+        {
+			result.push(rows[i]);
+		}
+		  	res.send(result);
+	}
+
+      else{
+        console.log('Error while performing Query.'+err);
+      }
+      });
+});
+
+//put call for 
+
+//HTTP to create events
+app.post('/api/event, function (req, res) {
+
+    console.log(req.body.name);
+    var body = req.body;
+    var event = {event_id: body.event_id,
+    month: body.month,
+    location: body.location,
+    date : body.date,
+    start_time : body.start_time,
+    end_time : body.end_time,
+    
+}
+   con.query('INSERT INTO events SET ?', event, function(err,res){
+   if(err) throw err;
+
+   console.log('Last inserted ID:',body.event_id);
+   });
+   res.writeHeader(200, {"Content-Type": "application/json"});
+   res.end();
+  
+})
+
+
 //HTTP to login check for admin
 app.post('/api/admin/login', function (req, res) {
 

@@ -201,8 +201,8 @@ app.put('/api/attendees/:cust_id', function (req, res){
     var attended = 
     {
         customer_id:body.cust_id,
-        var event_id = body.event_id,
-        var attended = body.attended   
+        event_id:body.event_id,
+        attended:body.attended   
     }
     connection.query(queryStr,attended,function(err,res){
         if(err) throw err;
@@ -365,6 +365,15 @@ app.delete('/api/customer/:cust_id', function (req, res){
             console.log('An customer is removed.');
         }
     });
+
+})
+
+var server = app.listen(3000, function () {
+
+  var host = server.address().address
+  var port = server.address().port
+
+  console.log("App listening at http://%s:%s", host, port)
 
 })
 

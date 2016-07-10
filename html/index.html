@@ -98,7 +98,7 @@
       <label class="checkbox">
         <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
       </label>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
+      <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="login()">Login</button>   
     </form>
   </div>
         </div>
@@ -155,7 +155,7 @@
 </body>
 
 <script type="text/javascript">
-
+function login(){
 var $inputs = $('#signinform :input');
 var values = {};
     $inputs.each(function() {
@@ -183,6 +183,7 @@ var values = {};
                 $('#loginerror').css('display', 'inline-block');
             }
          });
+}
 </script>
 
 </html>

@@ -310,7 +310,7 @@ app.post('/api/customer/login', function (req, res) {
         }
     });
 
-    res.end({});
+    res.end("{}");
 
 })
 

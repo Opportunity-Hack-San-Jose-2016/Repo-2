@@ -46,12 +46,12 @@ app.get('/api/customer', function(req, res){
 });
 
 //get by member id
-app.get('/api/customer/:memberId', function(req, res){
+app.get('/api/customer/:cust_id', function(req, res){
 
   var result =[];
-  var memberId = Number(req.query.memberId);
+  var cust_id = Number(req.query.cust_id);
 
-  var queryStr = "select * from customer where cust_id ="+memberId;
+  var queryStr = "select * from customer where cust_id ="+cust_id;
   console.log("Query is "+queryStr);
   connection.query(queryStr, function(err, rows, fields) {
       if (!err && rows.length!=0){

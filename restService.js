@@ -291,7 +291,7 @@ app.post('/api/customer/login', function (req, res) {
 
     console.log(req.body.password +"  "+ hash);
 
-    var queryStr = "select cust_id, password from customer where cust_id="+req.body.cust_id+ "and password="+ hash;
+    var queryStr = "select cust_id, password from customer where cust_id='"+req.body.cust_id+ "' and password='"+ hash + "'";
     console.log("Query is "+queryStr);
     connection.query(queryStr, function(err, rows, fields) {
         if (!err && rows.length!=0){
@@ -300,7 +300,7 @@ app.post('/api/customer/login', function (req, res) {
 
                 result.push(rows[i]);
             }
-            res.send(result);
+            //res.send(result);
             res.writeHeader(200, {"Content-Type": "application/json"});
         }
 

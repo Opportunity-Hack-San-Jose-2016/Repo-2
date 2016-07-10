@@ -301,12 +301,12 @@ app.post('/api/customer/login', function (req, res) {
                 result.push(rows[i]);
             }
             //res.send(result);
-            res.writeHeader(200, {"Content-Type": "application/json"});
+            res.writeHead(200);
         }
 
         else{
             console.log('Error while performing Query.'+err);
-            res.writeHeader(401, {"Content-Type": "application/json"});
+            res.writeHead(401);
         }
     });
 

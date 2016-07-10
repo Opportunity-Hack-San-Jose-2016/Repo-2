@@ -300,7 +300,7 @@ app.put('/api/customer/register/:cust_id', function (req, res){
 
     var cust_id = req.body.cust_id;
 
-    var queryStr = "UPDATE SET ContactName = 'Alfred Schmidt', City='Hamburg' WHERE CustomerName='Alfreds Futterkiste'";
+    var queryStr = 'UPDATE customer SET ? WHERE cust_id ='+cust_id;
     var body = req.body;
     var hash = crypto.createHash('sha256').update(body.password).digest('base64');
     var customer = {customer_id: body.customer_id,
@@ -325,7 +325,7 @@ app.put('/api/customer/register/:cust_id', function (req, res){
         date : body.date,
     }
 
-    connection.query('UPDATE users SET ? WHERE cust_id ='+cust_id,
+    connection.query(queryStr,
         customer,function(err,res){
         if(err) throw err;
         console.log('Last update ID:',body.cust_id);

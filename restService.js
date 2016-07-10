@@ -327,9 +327,10 @@ app.put('/api/customer/register/:cust_id', function (req, res){
     }
 
     connection.query('UPDATE users SET ? WHERE cust_id ='+cust_id,
-        customer),function(err,res){
+        customer,function(err,res){
         if(err) throw err;
         console.log('Last update ID:',body.cust_id);
+        });
     });
 
 

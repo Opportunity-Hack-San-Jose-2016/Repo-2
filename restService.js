@@ -215,7 +215,7 @@ app.put('/api/attendees/:cust_id', function (req, res){
 app.put('/api/attendees/:cust_id', function (req, res){
     var body = req.body;
     var time = req.body.time;
-    var queryStr = "UPDATE attended SET time ? WHERE cust_id ='+cust_id;
+    var queryStr = "UPDATE attended SET time ? WHERE cust_id ="+cust_id;
     var attended = 
     {
         customer_id:body.cust_id,

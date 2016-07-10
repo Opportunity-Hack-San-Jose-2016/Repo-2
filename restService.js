@@ -137,7 +137,7 @@ app.post('/api/admin/login', function (req, res) {
 
 })
 
-//HTTP to login check for admin
+//HTTP to login check for customer
 app.post('/api/customer/login', function (req, res) {
 
     var hash = crypto.createHash('sha256').update(req.body.password).digest('base64');

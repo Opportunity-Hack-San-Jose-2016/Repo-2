@@ -210,6 +210,25 @@ app.put('/api/attendees/:cust_id', function (req, res){
     });
 });
 
+//put call for schedule_appointment
+
+app.put('/api/attendees/:cust_id', function (req, res){
+    var body = req.body;
+    var time = req.body.time;
+    var queryStr = "UPDATE attended SET time ? WHERE cust_id ='+cust_id;
+    var attended = 
+    {
+        customer_id:body.cust_id,
+        var attended = body.attended,
+        var event_id = body.event_id,
+        var time = body.time  
+    }
+    connection.query(queryStr,attended,function(err,res){
+        if(err) throw err;
+        console.log('Last update ID:',body.cust_id);
+    });
+});
+
 
 //HTTP to create events
 app.post('/api/event', function (req, res) {

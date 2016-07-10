@@ -15,10 +15,10 @@ app.use(bodyParser.json());
 var mysql  = require('mysql');
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
+  host     : '146.148.91.210',
   user     : 'root',
-  password : '123456',
-  database : 'mysql'
+  password : 'paypalhack',
+  database : 'sys'
 });
 
 connection.connect();
@@ -30,7 +30,7 @@ app.get('/api/customer', function(req, res){
   var queryStr = "select * from customer";
   console.log("Query is "+queryStr);
   connection.query(queryStr, function(err, rows, fields) {
-      if (!err && rows.length!=0){
+      if (!err){
         console.log('The solution is: ', rows);
 		for(var i = 0; i<rows.length; i++){
 
@@ -97,13 +97,13 @@ app.post('/api/customer/register', function (req, res) {
     digital_sign : body.q2_ans,
     date : body.date,
 }
-   con.query('INSERT INTO customer SET ?', customer, function(err,res){
+   connection.query('INSERT INTO customer SET ?', customer, function(err,res){
    if(err) throw err;
 
    console.log('Last insert ID:',body.customer_id);
    });
    res.writeHeader(200, {"Content-Type": "application/json"});
-   res.end();
+   res.end("{}");
   
 })
 

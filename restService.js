@@ -17,7 +17,7 @@ var mysql  = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'admin',
+  password : '123456',
   database : 'mysql'
 });
 
@@ -137,7 +137,7 @@ app.post('/api/admin/login', function (req, res) {
 
 })
 
-//HTTP to login check for customer
+//HTTP to login check for admin
 app.post('/api/customer/login', function (req, res) {
 
     var hash = crypto.createHash('sha256').update(req.body.password).digest('base64');
@@ -167,13 +167,57 @@ app.post('/api/customer/login', function (req, res) {
 
 })
 
+// Update the customer record
+app.put('/api/customer/register/:cust_id', function (req, res){
 
-var server = app.listen(8081 , function (){
+    var cust_id = req.body.cust_id;
 
-  var host = server.address().address
-  var port = server.address().port
+    var queryStr = "UPDATE SET ContactName = 'Alfred Schmidt', City='Hamburg'
+    WHERE CustomerName='Alfreds Futterkiste';
+    var body = req.body;
+    var hash = crypto.createHash('sha256').update(body.password).digest('base64');
+    var customer = {customer_id: body.customer_id,
+        password: hash,
+        firstname : body.firstname,
+        lastname : body.lastname,
+        address : body.address,
+        city : body.city,
+        state : body.state,
+        zipcode : body.zipcode,
+        dob : body.dob,
+        phone : body.phone,
+        adult : body.adult,
+        children : body.children,
+        total_ppl : body.total_ppl,
+        race : body.race,
+        language : body.language,
+        disability : body.disability,
+        q1_ans : body.q1_ans,
+        q2_ans : body.q2_ans,
+        digital_sign : body.q2_ans,
+        date : body.date,
+    }
 
-  console.log("App listening at http://%s:%s", host, port)
+    connection.query('UPDATE users SET ? WHERE cust_id ='+cust_id,
+        customer),function(err,res){
+        if(err) throw err;
+        console.log('Last update ID:',body.cust_id);
+    });
+
+
+app.delete('/api/customer/:cust_id', function (req, res){
+
+    var cust_id = req.body.cust_id;
+
+    var queryStr = 'DELETE FROM customer WHERE cust_id=?';
+    var body = req.body;
+    //Delete a record.
+    connection.query(deleteRecord, cust_id, function(err, res){
+        if(err) throw err;
+        else {
+            console.log('An customer is removed.');
+        }
+    });
 
 })
 

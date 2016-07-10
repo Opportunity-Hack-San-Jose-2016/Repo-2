@@ -322,7 +322,7 @@ app.put('/api/customer/register/:cust_id', function (req, res){
         disability : body.disability,
         q1_ans : body.q1_ans,
         q2_ans : body.q2_ans,
-        digital_sign : body.q2_ans,
+        digital_sign : "true",
         date : body.date,
     }
 
